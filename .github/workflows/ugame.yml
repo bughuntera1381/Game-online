@@ -1,7 +1,5 @@
 name: Extract ApexArena
-
-on: [push, workflow_dispatch]  # یا هر تریگری که نیاز دارید
-
+on: [push, workflow_dispatch]
 jobs:
   unzip:
     runs-on: ubuntu-latest
@@ -14,5 +12,9 @@ jobs:
 
       - name: Extract ApexArena.rar
         run: unrar x ApexArena.rar
-        # اگر می‌خواهید فایل‌ها در پوشه‌ای خاص استخراج شوند:
-        # run: unrar x ApexArena.rar /path/to/destination/
+
+      # مرحله جدید: کامیت کردن فایل‌های استخراج‌شده
+      - name: Commit extracted files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Add extracted files from ApexArena.rar"
